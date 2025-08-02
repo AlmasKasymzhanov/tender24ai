@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
 import { mockTenders, mockCategories, mockDashboardStats } from "@/lib/data/mockTenders"
+import Link from "next/link"
 import { 
   Search, 
   Filter, 
@@ -129,7 +130,9 @@ export default function HomePage() {
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" className="text-gray-600">Войти</Button>
-              <Button className="bg-black text-white hover:bg-gray-800">Начать работу</Button>
+              <Link href="/dashboard">
+                <Button className="bg-black text-white hover:bg-gray-800">Начать работу</Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -168,10 +171,12 @@ export default function HomePage() {
                   ))}
                 </SelectContent>
               </Select>
-              <Button className="bg-black text-white hover:bg-gray-800 h-12 px-8">
-                <Filter className="h-4 w-4 mr-2" />
-                Поиск
-              </Button>
+              <Link href="/dashboard">
+                <Button className="bg-black text-white hover:bg-gray-800 h-12 px-8">
+                  <Filter className="h-4 w-4 mr-2" />
+                  Поиск
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -359,10 +364,12 @@ export default function HomePage() {
                           {tender.executionPeriod} дней
                         </Badge>
                       </div>
-                      <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                        Анализировать
-                        <ArrowRight className="h-4 w-4 ml-2" />
-                      </Button>
+                      <Link href={`/tender/${tender.id}`}>
+                        <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
+                          Анализировать
+                          <ArrowRight className="h-4 w-4 ml-2" />
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
@@ -376,9 +383,11 @@ export default function HomePage() {
               <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
                 Получите глубокие инсайты с трендами рынка, анализом конкурентов и предиктивным моделированием
               </p>
-              <Button className="bg-black text-white hover:bg-gray-800">
-                Изучить аналитику
-              </Button>
+              <Link href="/dashboard">
+                <Button className="bg-black text-white hover:bg-gray-800">
+                  Изучить аналитику
+                </Button>
+              </Link>
             </div>
           </TabsContent>
         </Tabs>
@@ -630,9 +639,11 @@ export default function HomePage() {
               onChange={(e) => setEmail(e.target.value)}
               className="flex-1 h-12"
             />
-            <Button size="lg" className="bg-black text-white hover:bg-gray-800 h-12 px-6">
-              Начать бесплатно
-            </Button>
+            <Link href="/dashboard">
+              <Button size="lg" className="bg-black text-white hover:bg-gray-800 h-12 px-6">
+                Начать бесплатно
+              </Button>
+            </Link>
           </div>
           
           <p className="text-sm text-gray-500 flex items-center justify-center gap-4">
