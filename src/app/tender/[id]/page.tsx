@@ -1,7 +1,7 @@
 // app/tender/[id]/page.tsx
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
 import { mockTenders } from "@/lib/data/mockTenders"
 import Link from "next/link"
+import { useParams } from "next/navigation"
 import { 
   ArrowLeft,
   Heart,
@@ -34,18 +35,17 @@ import {
   Award
 } from "lucide-react"
 
-interface TenderDetailPageProps {
-  params: {
-    id: string
-  }
-}
-
-export default function TenderDetailPage({ params }: TenderDetailPageProps) {
+export default function TenderDetailPage() {
+  const params = useParams()
   const [activeTab, setActiveTab] = useState("overview")
   const [isSaved, setIsSaved] = useState(false)
+  const [tender, setTender] = useState(mockTenders[0])
   
-  // В реальном приложении здесь будет API запрос
-  const tender = mockTenders.find(t => t.id === params.id) || mockTenders[0]
+  useEffect(() => {
+    // Находим тендер по ID или берем первый
+    const foundTender = mockTenders.find(t => t.id === params.id) || mockTenders[0]
+    setTender(foundTender)
+  }, [params.id])
   
   const aiInsights = {
     recommendation: {
