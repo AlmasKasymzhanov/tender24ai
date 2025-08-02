@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Input } from "@/components/ui/input"
@@ -27,7 +27,6 @@ import {
   Network,
   Lock,
   Database,
-  BarChart3,
   Zap,
   Building2,
   Monitor,
@@ -545,7 +544,7 @@ export default function HomePage() {
           <div className="text-center">
             <Badge className="bg-green-100 text-green-800 px-4 py-2">
               <Database className="h-4 w-4 mr-2" />
-              Соответствие 152-ФЗ и Закону РК "О персональных данных"
+              Соответствие 152-ФЗ и Закону РК о персональных данных
             </Badge>
           </div>
         </div>
@@ -602,7 +601,7 @@ export default function HomePage() {
                   </div>
                   
                   <blockquote className="text-gray-700 leading-relaxed">
-                    "{testimonial.text}"
+                    &ldquo;{testimonial.text}&rdquo;
                   </blockquote>
                   
                   <div className="border-t pt-4">
