@@ -1,7 +1,7 @@
 // app/dashboard/page.tsx
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -45,6 +45,14 @@ export default function DashboardPage() {
   const [savedTenders, setSavedTenders] = useState<string[]>([])
   const [sidebarOpen, setSidebarOpen] = useState(true)
 
+  // Загрузка сохраненных тендеров из localStorage при загрузке страницы
+  useEffect(() => {
+    const saved = localStorage.getItem('savedTenders')
+    if (saved) {
+      setSavedTenders(JSON.parse(saved))
+    }
+  }, [])
+
   const categoryIcons = {
     construction: <Building2 className="h-4 w-4" />,
     it: <Monitor className="h-4 w-4" />,
@@ -83,11 +91,26 @@ export default function DashboardPage() {
     }
   }
 
+  // Обновленная функция для сохранения тендеров с localStorage
   const toggleSavedTender = (tenderId: string) => {
+    let updatedSaved
     if (savedTenders.includes(tenderId)) {
-      setSavedTenders(savedTenders.filter(id => id !== tenderId))
+      updatedSaved = savedTenders.filter(id => id !== tenderId)
     } else {
-      setSavedTenders([...savedTenders, tenderId])
+      updatedSaved = [...savedTenders, tenderId]
+    }
+    
+    setSavedTenders(updatedSaved)
+    // Сохраняем в localStorage
+    localStorage.setItem('savedTenders', JSON.stringify(updatedSaved))
+    
+    // Опционально: показать уведомление
+    if (updatedSaved.includes(tenderId)) {
+      // Тендер добавлен
+      console.log('Тендер добавлен в избранное!')
+    } else {
+      // Тендер удален
+      console.log('Тендер удален из избранного!')
     }
   }
 
@@ -130,10 +153,12 @@ export default function DashboardPage() {
                   3
                 </span>
               </Button>
-              <Button variant="ghost" size="sm">
-                <User className="h-5 w-5" />
-                <span className="ml-2 hidden md:block">Алмас</span>
-              </Button>
+              <Link href="/profile">
+                <Button variant="ghost" size="sm">
+                  <User className="h-5 w-5" />
+                  <span className="ml-2 hidden md:block">Алмас</span>
+                </Button>
+              </Link>
               <Button variant="ghost" size="sm">
                 <LogOut className="h-5 w-5" />
               </Button>
